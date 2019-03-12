@@ -25,9 +25,15 @@ function App() {
 
   const handleChange = React.useCallback(({ target }) => {
     setValues(values => {
-      return produce(values, draft => {
+      const newValues = produce(values, draft => {
         draft[target.name] = +target.value
       })
+
+      if (target.name === 0) {
+        return newValues
+      }
+
+      return getCalculatedLRM(newValues)
     })
   }, [])
 
